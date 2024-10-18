@@ -5,14 +5,14 @@ declare type CreateUserParams = {
   clerkId: string;
   email: string;
   username: string;
-  firstName: string;
-  lastName: string;
+  firstName?: string | null; // Optional or nullable
+  lastName?: string | null; // Optional or nullable
   photo: string;
 };
 
 declare type UpdateUserParams = {
-  firstName: string;
-  lastName: string;
+  firstName?: string | null; // Optional or nullable
+  lastName?: string | null; // Optional or nullable
   username: string;
   photo: string;
 };
