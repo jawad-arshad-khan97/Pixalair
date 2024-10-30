@@ -12,14 +12,16 @@ type MediaUploaderProps = {
   publicId: string;
   image: any;
   type: string;
+  title?: string;
 };
 
-export const MediaUploader = ({
+const MediaUploader = ({
   onValueChange,
   setImage,
   image,
   publicId,
   type,
+  title = "default title",
 }: MediaUploaderProps) => {
   const { toast } = useToast();
 
@@ -57,6 +59,8 @@ export const MediaUploader = ({
       options={{
         multiple: false,
         resourceType: "image",
+        tags: [title], // Use title as a tag
+        context: { caption: title }, // Use title in context metadata
       }}
       onSuccess={onUploadSuccessHandler}
       onError={onUploadErrorHandler}

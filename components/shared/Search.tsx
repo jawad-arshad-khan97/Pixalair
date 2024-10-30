@@ -30,7 +30,7 @@ export const Search = () => {
 
         router.push(newUrl, { scroll: false });
       }
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(delayDebounceFn);
   }, [router, searchParams, query]);

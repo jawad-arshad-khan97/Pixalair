@@ -116,7 +116,7 @@ export async function getAllImages({
     let expression = "folder=pixalair";
 
     if (searchQuery) {
-      expression += ` AND ${searchQuery}`;
+      expression += ` AND (${searchQuery} OR tags=${searchQuery})`;
     }
 
     const { resources } = await cloudinary.search
@@ -127,12 +127,14 @@ export async function getAllImages({
 
     let query = {};
 
-    if (searchQuery) {
+    if (resourceIds.length > 0 && !searchQuery.includes("title")) {
       query = {
         publicId: {
           $in: resourceIds,
         },
       };
+    } else if (searchQuery) {
+      query = { title: { $regex: searchQuery, $options: "i" } };
     }
 
     const skipAmount = (Number(page) - 1) * limit;
@@ -156,32 +158,32 @@ export async function getAllImages({
 }
 
 // GET IMAGES BY USER
-export async function getUserImages({
-  limit = 9,
-  page = 1,
-  userId,
-}: {
-  limit?: number;
-  page: number;
-  userId: string;
-}) {
-  try {
-    await connectToDatabase();
+// export async function getUserImages({
+//   limit = 9,
+//   page = 1,
+//   userId,
+// }: {
+//   limit?: number;
+//   page: number;
+//   userId: string;
+// }) {
+//   try {
+//     await connectToDatabase();
 
-    const skipAmount = (Number(page) - 1) * limit;
+//     const skipAmount = (Number(page) - 1) * limit;
 
-    const images = await populateUser(Image.find({ author: userId }))
-      .sort({ updatedAt: -1 })
-      .skip(skipAmount)
-      .limit(limit);
+//     const images = await populateUser(Image.find({ author: userId }))
+//       .sort({ updatedAt: -1 })
+//       .skip(skipAmount)
+//       .limit(limit);
 
-    const totalImages = await Image.find({ author: userId }).countDocuments();
+//     const totalImages = await Image.find({ author: userId }).countDocuments();
 
-    return {
-      data: JSON.parse(JSON.stringify(images)),
-      totalPages: Math.ceil(totalImages / limit),
-    };
-  } catch (error) {
-    handleError(error);
-  }
-}
+//     return {
+//       data: JSON.parse(JSON.stringify(images)),
+//       totalPages: Math.ceil(totalImages / limit),
+//     };
+//   } catch (error) {
+//     handleError(error);
+//   }
+// }
