@@ -5,6 +5,7 @@ import qs from "qs";
 import { twMerge } from "tailwind-merge";
 
 import { aspectRatioOptions } from "@/constants";
+import { KeyboardEvent } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -155,3 +156,27 @@ export const deepMergeObjects = (obj1: any, obj2: any) => {
 
   return output;
 };
+
+export const handleKeyDown = (
+  event: React.KeyboardEvent<HTMLInputElement>,
+  allowedChars: string[] = []
+) => {
+  const allowedPattern = `a-zA-Z0-9${allowedChars.join("")}\\s`; // \s allows spaces
+  const regex = new RegExp(`^[${allowedPattern}]*$`);
+
+  // Prevent input if the key is not allowed
+  if (!regex.test(event.key)) {
+    event.preventDefault();
+  }
+};
+
+export function sanitizeInput(
+  input: string,
+  allowedChars: string[] = []
+): string {
+  const allowed = allowedChars.join("");
+  const regex = new RegExp(`[^a-zA-Z0-9\\s${allowed}]`, "g");
+
+  const sanitizedInput = input.trim().replace(regex, "");
+  return sanitizedInput || "";
+}

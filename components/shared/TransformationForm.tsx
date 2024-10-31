@@ -23,7 +23,12 @@ import {
 } from "@/constants";
 import { CustomField } from "./CustomField";
 import { useEffect, useState, useTransition } from "react";
-import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
+import {
+  AspectRatioKey,
+  debounce,
+  deepMergeObjects,
+  handleKeyDown,
+} from "@/lib/utils";
 import MediaUploader from "./MediaUploader";
 import TransformedImage from "./TransformedImage";
 import { updateCredits } from "@/lib/actions/user.actions";
@@ -208,7 +213,13 @@ const TransformationForm = ({
           name="title"
           formLabel="Image Title"
           className="w-full"
-          render={({ field }) => <Input {...field} className="input-field" />}
+          render={({ field }) => (
+            <Input
+              {...field}
+              onKeyDown={(event) => handleKeyDown(event, ["-", "_"])}
+              className="input-field"
+            />
+          )}
         />
 
         {type === "fill" && (
@@ -252,6 +263,7 @@ const TransformationForm = ({
                 <Input
                   value={field.value}
                   className="input-field"
+                  onKeyDown={handleKeyDown}
                   onChange={(e) =>
                     onInputChangeHandler(
                       "prompt",
@@ -274,6 +286,7 @@ const TransformationForm = ({
                   <Input
                     value={field.value}
                     className="input-field"
+                    onKeyDown={handleKeyDown}
                     onChange={(e) =>
                       onInputChangeHandler(
                         "color",
@@ -282,6 +295,7 @@ const TransformationForm = ({
                         field.onChange
                       )
                     }
+                    // Block disallowed characters from keyboard
                   />
                 )}
               />

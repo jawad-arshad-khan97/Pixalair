@@ -5,12 +5,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Input } from "@/components/ui/input";
-import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
+import { formUrlQuery, handleKeyDown, removeKeysFromQuery } from "@/lib/utils";
 
 export const Search = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState("");
+
+  // const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+  //   const regex = /^[a-zA-Z0-9 ]*$/;
+  //   if (!regex.test(e.key) && e.key !== "Backspace") {
+  //     e.preventDefault(); // Prevents entering invalid characters
+  //   }
+  // };
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -48,6 +55,7 @@ export const Search = () => {
         className="search-field"
         placeholder="Search"
         onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(event) => handleKeyDown(event, ["-", "_"])}
       />
     </div>
   );

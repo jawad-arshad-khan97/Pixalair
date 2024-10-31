@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { connectToDatabase } from "../database/mongoose";
-import { handleError } from "../utils";
+import { handleError, sanitizeInput } from "../utils";
 import User from "../database/models/user.model";
 import Image from "../database/models/image.model";
 import { redirect } from "next/navigation";
@@ -112,6 +112,8 @@ export async function getAllImages({
       api_secret: process.env.CLOUDINARY_API_SECRET,
       secure: true,
     });
+
+    searchQuery = sanitizeInput(searchQuery, ["-", "_"]);
 
     let expression = "folder=pixalair";
 
