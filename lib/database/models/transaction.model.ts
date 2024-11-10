@@ -5,7 +5,17 @@ const TransactionSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  stripeId: {
+  razorpay_payment_id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  razorpay_order_id: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  razorpay_signature: {
     type: String,
     required: true,
     unique: true,

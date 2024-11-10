@@ -136,3 +136,9 @@ declare type TransformedImageProps = {
   hasDownload?: boolean;
   setIsTransforming?: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+declare interface Window {
+  Razorpay?: any;
+}
+
+declare var Razorpay: any;
