@@ -12,8 +12,8 @@ const {
 } = require("razorpay/dist/utils/razorpay-utils");
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID as string,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_id: process.env.TEST_RAZORPAY_KEY_ID as string,
+  key_secret: process.env.TEST_RAZORPAY_KEY_SECRET,
 });
 
 // Define types for transactions if you haven't already
@@ -75,7 +75,7 @@ export async function createTransaction(
         payment_id: razorpaySignatureParams.razorpay_payment_id,
       },
       razorpaySignatureParams.razorpay_signature,
-      process.env.RAZORPAY_KEY_SECRET
+      process.env.TEST_RAZORPAY_KEY_SECRET
     );
 
     if (!isSignatureValid) {
@@ -85,7 +85,7 @@ export async function createTransaction(
     // Create a new transaction with a buyerId
     const newTransaction = await Transaction.create({
       ...transaction,
-      buyer: transaction.buyerId,
+      buyerId: transaction.buyerId,
     });
 
     await updateCredits(transaction.buyerId, transaction.credits);

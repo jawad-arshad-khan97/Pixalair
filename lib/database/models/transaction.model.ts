@@ -1,9 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
 const TransactionSchema = new Schema({
-  createdAt: {
+  created_at: {
     type: Date,
     default: Date.now,
+  },
+  razorpay_id: {
+    type: String,
+    required: true,
+    unique: true,
   },
   razorpay_payment_id: {
     type: String,
@@ -18,7 +23,6 @@ const TransactionSchema = new Schema({
   razorpay_signature: {
     type: String,
     required: true,
-    unique: true,
   },
   amount: {
     type: Number,

@@ -63,7 +63,7 @@ const Checkout = ({
         toast({
           title: "Error",
           description: "Razorpay SDK failed to load. Are you online?",
-          duration: 5000,
+          duration: 3000,
           className: "error-toast",
         });
         return;
@@ -71,7 +71,7 @@ const Checkout = ({
 
       // Configure Razorpay options
       const options = {
-        key_id: process.env.RAZORPAY_KEY_ID,
+        key_id: process.env.TEST_RAZORPAY_KEY_ID,
         amount: amount.toString(),
         currency,
         name: "Pixalair",
@@ -89,7 +89,7 @@ const Checkout = ({
           toast({
             title: "Order placed!",
             description: "Your payment was successful!",
-            duration: 5000,
+            duration: 1000,
             className: "success-toast",
           });
           window.location.href = `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`;
