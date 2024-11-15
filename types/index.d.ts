@@ -77,21 +77,22 @@ declare type CheckoutTransactionParams = {
   credits: number;
   amount: number;
   buyerId: string;
+};
+
+declare type RazorpayCheckoutHandlerParams = {
   razorpay_payment_id: string;
   razorpay_order_id: string;
   razorpay_signature: string;
 };
 
 declare type CreateTransactionParams = {
-  razorpayId: string;
+  order_id: string;
   amount: number;
   credits: number;
   plan: string;
   buyerId: string;
   created_at: Date;
-  razorpay_payment_id: string;
-  razorpay_order_id: string;
-  razorpay_signature: string;
+  razorpayId: string;
 };
 
 declare type TransformationTypeKey =

@@ -2,7 +2,10 @@
 
 import { useEffect } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { checkoutCredits } from "@/lib/actions/transaction.actions"; // Your backend action to create Razorpay order
+import {
+  checkoutCredits,
+  updateOrderAndVerifyPaymentSignature,
+} from "@/lib/actions/transaction.actions"; // Your backend action to create Razorpay order
 
 import { Button } from "../ui/button";
 
@@ -71,7 +74,7 @@ const Checkout = ({
 
       // Configure Razorpay options
       const options = {
-        key_id: process.env.TEST_RAZORPAY_KEY_ID,
+        key: process.env.TEST_RAZORPAY_KEY_ID,
         amount: amount.toString(),
         currency,
         name: "Pixalair",
@@ -84,15 +87,21 @@ const Checkout = ({
         //   contact: "", //Provide the customer's phone number for better conversion rates
         // },
         // readonly: { email: true, contact: true },
-        handler: function (response: any) {
+        handler: async function (response: any) {
           console.log(response);
+          updateOrderAndVerifyPaymentSignature(
+            order_id,
+            response.razorpay_order_id,
+            response.razorpay_payment_id,
+            response.razorpay_signature
+          );
           toast({
             title: "Order placed!",
             description: "Your payment was successful!",
             duration: 1000,
             className: "success-toast",
           });
-          window.location.href = `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`;
+          window.location.href = `${window.location.origin}/credits/?status=success`;
         },
         theme: { color: "#3399cc" },
       };
@@ -112,6 +121,7 @@ const Checkout = ({
         duration: 3000,
         className: "error-toast",
       });
+      window.location.href = `${window.location.origin}/credits/?status=failed`;
       console.error(error);
     }
   };
