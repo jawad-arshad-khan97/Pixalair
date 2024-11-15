@@ -101,9 +101,9 @@ const Checkout = ({
             duration: 1000,
             className: "success-toast",
           });
-          window.location.href = `${window.location.origin}/credits/?status=success`;
+          window.location.href = `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`;
         },
-        theme: { color: "#3399cc" },
+        theme: { color: "#7857ff" },
       };
 
       // Open the Razorpay checkout modal
