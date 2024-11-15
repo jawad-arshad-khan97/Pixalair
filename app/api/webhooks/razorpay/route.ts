@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   const body = await request.text();
 
   const signature = request.headers.get("x-razorpay-signature") as string;
-  const endpointSecret = process.env.TEST_RAZORPAY_WEBHOOK_SECRET!;
+  const endpointSecret = process.env.RAZORPAY_WEBHOOK_SECRET!;
 
   var isSignatureValid = Razorpay.validateWebhookSignature(
     body,

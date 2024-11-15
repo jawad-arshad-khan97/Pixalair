@@ -13,8 +13,8 @@ const {
 } = require("razorpay/dist/utils/razorpay-utils");
 
 const razorpay = new Razorpay({
-  key_id: process.env.TEST_RAZORPAY_KEY_ID as string,
-  key_secret: process.env.TEST_RAZORPAY_KEY_SECRET,
+  key_id: process.env.RAZORPAY_KEY_ID as string,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
@@ -66,7 +66,7 @@ export async function updateOrderAndVerifyPaymentSignature(
         payment_id: razorpay_payment_id,
       },
       razorpay_signature,
-      process.env.TEST_RAZORPAY_KEY_SECRET
+      process.env.RAZORPAY_KEY_SECRET
     );
 
     if (!isSignatureValid) {

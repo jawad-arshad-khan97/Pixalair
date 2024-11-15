@@ -74,7 +74,7 @@ const Checkout = ({
 
       // Configure Razorpay options
       const options = {
-        key: process.env.TEST_RAZORPAY_KEY_ID,
+        key: process.env.RAZORPAY_KEY_ID,
         amount: amount.toString(),
         currency,
         name: "Pixalair",
