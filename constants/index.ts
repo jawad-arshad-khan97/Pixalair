@@ -44,13 +44,13 @@ export const navLinks = [
 export const plans = [
   {
     _id: 1,
-    name: "Free",
+    name: "Free Trial",
     icon: "/assets/icons/free-plan.svg",
     price: 0,
     credits: 20,
     inclusions: [
       {
-        label: "20 Free Credits",
+        label: "20 Free Credits for trial",
         isIncluded: true,
       },
       {
@@ -71,11 +71,11 @@ export const plans = [
     _id: 2,
     name: "Pro Package",
     icon: "/assets/icons/free-plan.svg",
-    price: 40,
-    credits: 120,
+    price: 99,
+    credits: 40,
     inclusions: [
       {
-        label: "120 Credits",
+        label: "40 Credits",
         isIncluded: true,
       },
       {
@@ -84,7 +84,7 @@ export const plans = [
       },
       {
         label: "Priority Customer Support",
-        isIncluded: true,
+        isIncluded: false,
       },
       {
         label: "Priority Updates",
@@ -96,11 +96,11 @@ export const plans = [
     _id: 3,
     name: "Premium Package",
     icon: "/assets/icons/free-plan.svg",
-    price: 199,
-    credits: 2000,
+    price: 999,
+    credits: 500,
     inclusions: [
       {
-        label: "2000 Credits",
+        label: "1000 Credits",
         isIncluded: true,
       },
       {
@@ -190,4 +190,4 @@ export const defaultValues = {
   publicId: "",
 };
 
-export const creditFee = -1;
+export const creditFee = -2;
