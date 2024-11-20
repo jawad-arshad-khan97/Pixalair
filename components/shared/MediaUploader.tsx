@@ -5,6 +5,9 @@ import { dataUrl, getImageSize } from "@/lib/utils";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 import Image from "next/image";
+import { creditFee } from "@/constants";
+
+const positiveCreditFee = Math.abs(creditFee);
 
 type MediaUploaderProps = {
   onValueChange: (value: string) => void;
@@ -38,7 +41,7 @@ const MediaUploader = ({
 
     toast({
       title: "Image uploaded successfully",
-      description: "1 credit was deducted from your account",
+      description: `${positiveCreditFee} credit${positiveCreditFee > 1 ? "s" : ""} were deducted from your account.`,
       duration: 5000,
       className: "success-toast",
     });

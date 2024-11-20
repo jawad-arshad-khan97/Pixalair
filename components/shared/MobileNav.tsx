@@ -7,9 +7,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "../ui/button";
+import { useState } from "react";
 
 const MobileNav = () => {
   const pathname = usePathname();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setIsSheetOpen(false); // Close the sidebar when a link is clicked
+  };
 
   return (
     <header className="header">
@@ -26,7 +32,7 @@ const MobileNav = () => {
         <SignedIn>
           <UserButton afterSignOutUrl="/" />
 
-          <Sheet>
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger>
               <Image
                 src="/assets/icons/menu.svg"
@@ -57,6 +63,7 @@ const MobileNav = () => {
                         <Link
                           className="sidebar-link cursor-pointer"
                           href={link.route}
+                          onClick={handleLinkClick}
                         >
                           <Image
                             src={link.icon}

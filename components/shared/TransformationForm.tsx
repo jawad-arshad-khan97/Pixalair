@@ -206,6 +206,14 @@ const TransformationForm = ({
 
   return (
     <Form {...form}>
+      {/* <Button
+        type="button"
+        className="clear-button capitalize ml-auto"
+        onClick={() => form.reset()} // Reset all fields
+      >
+        Clear All
+      </Button> */}
+
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
         <CustomField
