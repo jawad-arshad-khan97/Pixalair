@@ -198,6 +198,15 @@ const TransformationForm = ({
     });
   };
 
+  const onClearHandler = async () => {
+    form.reset();
+    setImage(null);
+    setNewTransformation(null);
+    setIsTransforming(false);
+    setIsSubmitting(false);
+    setTransformationConfig(config);
+  };
+
   useEffect(() => {
     if (image && (type === "restore" || type === "removeBackground")) {
       setNewTransformation(transformationType.config);
@@ -206,13 +215,13 @@ const TransformationForm = ({
 
   return (
     <Form {...form}>
-      {/* <Button
+      <Button
         type="button"
         className="clear-button capitalize ml-auto"
-        onClick={() => form.reset()} // Reset all fields
+        onClick={onClearHandler} // Reset all fields
       >
         Clear All
-      </Button> */}
+      </Button>
 
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}

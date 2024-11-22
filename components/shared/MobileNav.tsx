@@ -1,6 +1,11 @@
 "use client";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { navLinks } from "@/constants";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
@@ -43,6 +48,8 @@ const MobileNav = () => {
               />
             </SheetTrigger>
             <SheetContent className="sheet-content sm:w-64">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>{" "}
+              {/* Accessible but hidden */}
               <>
                 <Image
                   src="/assets/brand/logo-text.png"
